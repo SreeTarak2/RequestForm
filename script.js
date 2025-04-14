@@ -46,7 +46,7 @@ document
 
     try {
       const response = await fetch(
-        "https://requestform-gae3.onrender.com/submit",
+        "https://outingrequestsves.onrender.com/submit",
         {
           method: "POST",
           headers: {
@@ -59,11 +59,16 @@ document
 
       if (response.ok) {
         alert(`✅ Success: ${data.message}`);
+      
+        if (data.screenshot) {
+          const img = document.createElement("img");
+          img.src = data.screenshot;
+          img.alt = "Submission Screenshot";
+          document.body.appendChild(img);
+        }
       } else {
         alert(
-          `❌ Error: ${data.message}\nDetails: ${
-            data.error || "No extra info."
-          }`
+          `❌ Error: ${data.message}\nDetails: ${data.error || "No extra info."}`
         );
         console.error("Server Error:", data.error);
       }

@@ -1,6 +1,8 @@
 const express = require("express");
 const { spawn } = require("child_process");
 const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -33,12 +35,24 @@ app.post("/submit", (req, res) => {
 
   selenium.on("close", (code) => {
     if (code === 0) {
-      res.status(200).json({ message: "Outing request submitted!" });
+      const screenshotPath = path.join(__dirname, "screenshot.png");
+      if (fs.existsSync(screenshotPath)) {
+        const base64Image = fs.readFileSync(screenshotPath, {
+          encoding: "base64",
+        });
+        res.json({
+          message: "Outing request submitted!",
+          screenshot: `data:image/png;base64,${base64Image}`,
+        });
+      } else {
+        res.json({
+          message: "Outing request submitted, but no screenshot found.",
+        });
+      }
     } else {
-      res.status(500).json({
-        message: "There was an error submitting your request.",
-        error: stderrData || "Unknown error occurred during automation.",
-      });
+      res
+        .status(500)
+        .json({ message: "There was an error submitting your request." });
     }
   });
 });
