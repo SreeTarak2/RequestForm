@@ -48,7 +48,7 @@ document
     console.log(details);
 
     try {
-      const response = await fetch("http://localhost:3000/submit", {
+      const response = await fetch("https://requestform-uesb.onrender.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
