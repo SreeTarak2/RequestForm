@@ -46,7 +46,7 @@ document
 
     try {
       const response = await fetch(
-        "https://outingrequestsves.onrender.com/submit",
+        "https://requestform.up.railway.app/submit",
         {
           method: "POST",
           headers: {
