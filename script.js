@@ -1,6 +1,9 @@
 // Toggle password visibility
 const togglePassword = document.getElementById("toggle-password");
 const passwordInput = document.getElementById("password");
+const container = document.getElementById("screenshot-container");
+container.innerHTML = "";
+
 
 togglePassword.addEventListener("click", () => {
   const type =
@@ -45,30 +48,29 @@ document
     console.log(details);
 
     try {
-      const response = await fetch(
-        "https://outingrequestsves.onrender.com/submit",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(details),
-        }
-      );
+      const response = await fetch("http://localhost:3000/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(details),
+      });
       const data = await response.json();
 
       if (response.ok) {
         alert(`✅ Success: ${data.message}`);
-      
+
         if (data.screenshot) {
           const img = document.createElement("img");
           img.src = data.screenshot;
-          img.alt = "Submission Screenshot";
-          document.body.appendChild(img);
+          img.alt = "Screenshot";
+          container.appendChild(img);
         }
       } else {
         alert(
-          `❌ Error: ${data.message}\nDetails: ${data.error || "No extra info."}`
+          `❌ Error: ${data.message}\nDetails: ${
+            data.error || "No extra info."
+          }`
         );
         console.error("Server Error:", data.error);
       }
