@@ -62,7 +62,7 @@ document
 
         if (data.screenshot) {
           const img = document.createElement("img");
-          img.src = data.screenshot;
+          img.src = `${data.screenshot}?t=${Date.now()}`;;
           img.alt = "Screenshot";
           container.appendChild(img);
         }
