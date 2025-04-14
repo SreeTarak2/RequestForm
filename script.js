@@ -46,7 +46,7 @@ document
 
     try {
       const response = await fetch(
-        "https://requestform.up.railway.app/submit",
+        "https://requestform-gae3.onrender.com/submit",
         {
           method: "POST",
           headers: {
