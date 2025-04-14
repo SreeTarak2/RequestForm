@@ -48,7 +48,7 @@ document
     console.log(details);
 
     try {
-      const response = await fetch("https://requestform-79t9.onrender.com/submit", {
+      const response = await fetch("http://localhost:3000/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
